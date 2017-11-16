@@ -1026,8 +1026,8 @@ namespace ts.tscWatch {
             const host = createWatchedSystem(files);
             const watch = createWatchModeWithConfigFile(configFile.path, host);
             const errors = () => [
-                getDiagnosticOfFile(watch().getCompilerOptions().configFile, configFile.content.indexOf('"allowJs"'), '"allowJs"'.length, Diagnostics.Option_0_cannot_be_specified_with_option_1, "allowJs", "declaration"),
-                getDiagnosticOfFile(watch().getCompilerOptions().configFile, configFile.content.indexOf('"declaration"'), '"declaration"'.length, Diagnostics.Option_0_cannot_be_specified_with_option_1, "allowJs", "declaration")
+                getDiagnosticOfFile(watch().getCompilerOptions().configFile!, configFile.content.indexOf('"allowJs"'), '"allowJs"'.length, Diagnostics.Option_0_cannot_be_specified_with_option_1, "allowJs", "declaration"),
+                getDiagnosticOfFile(watch().getCompilerOptions().configFile!, configFile.content.indexOf('"declaration"'), '"declaration"'.length, Diagnostics.Option_0_cannot_be_specified_with_option_1, "allowJs", "declaration")
             ];
             const intialErrors = errors();
             checkOutputErrors(host, intialErrors, /*isInitial*/ true);
@@ -1037,8 +1037,8 @@ namespace ts.tscWatch {
             host.runQueuedTimeoutCallbacks();
             const nowErrors = errors();
             checkOutputErrors(host, nowErrors);
-            assert.equal(nowErrors[0].start, intialErrors[0].start - configFileContentComment.length);
-            assert.equal(nowErrors[1].start, intialErrors[1].start - configFileContentComment.length);
+            assert.equal(nowErrors[0].start, intialErrors[0].start! - configFileContentComment.length);
+            assert.equal(nowErrors[1].start, intialErrors[1].start! - configFileContentComment.length);
         });
     });
 
@@ -1249,7 +1249,7 @@ namespace ts.tscWatch {
             }
 
             function getFile(fileName: string) {
-                return find(files, file => file.path === fileName);
+                return find(files, file => file.path === fileName)!;
             }
 
             function verifyAffectedAllFiles() {
@@ -1982,7 +1982,7 @@ declare module "fs" {
                 return {
                     path: removeFileExtension(file.path.replace(configDir, outDirFolder)) + Extension.Js,
                     isExpectedToEmit: true,
-                    content: '"use strict";\nexports.__esModule = true;\n' + file.content.replace("import", "var") + "\n"
+                    content: '"use strict";\nexports.__esModule = true;\n' + file.content!.replace("import", "var") + "\n"
                 };
             }
         });

@@ -1231,10 +1231,10 @@ namespace ts.projectSystem {
 
             installer.installAll(/*expectedCount*/ 1);
 
-            assert.isTrue(!!beginEvent);
-            assert.isTrue(!!endEvent);
-            assert.isTrue(beginEvent.eventId === endEvent.eventId);
-            assert.isTrue(endEvent.installSuccess);
+            assert.isTrue(!!beginEvent!);
+            assert.isTrue(!!endEvent!);
+            assert.isTrue(beginEvent!.eventId === endEvent!.eventId);
+            assert.isTrue(endEvent!.installSuccess);
             host.checkTimeoutQueueLengthAndRun(2);
             checkNumberOfProjects(projectService, { inferredProjects: 1 });
             checkProjectActualFiles(projectService.inferredProjects[0], [f1.path, commander.path]);
