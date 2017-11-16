@@ -36,7 +36,7 @@ class Test262BaselineRunner extends RunnerBase {
             };
 
             before(() => {
-                const content = Harness.IO.readFile(filePath);
+                const content = Harness.IO.readFile(filePath)!;
                 const testFilename = ts.removeFileExtension(filePath).replace(/\//g, "_") + ".test";
                 const testCaseContent = Harness.TestCaseParser.makeUnitsFromTest(content, testFilename);
 

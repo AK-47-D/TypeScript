@@ -11,7 +11,7 @@ interface ExecResult {
 
 abstract class ExternalCompileRunnerBase extends RunnerBase {
     abstract testDir: string;
-    abstract report(result: ExecResult, cwd: string): string;
+    abstract report(result: ExecResult, cwd: string): string | null;
     enumerateTestFiles() {
         return Harness.IO.getDirectories(this.testDir);
     }

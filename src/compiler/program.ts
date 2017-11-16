@@ -342,7 +342,7 @@ namespace ts {
         return output;
     }
 
-    export function flattenDiagnosticMessageText(messageText: string | DiagnosticMessageChain, newLine: string): string {
+    export function flattenDiagnosticMessageText(messageText: string | DiagnosticMessageChain | undefined, newLine: string): string {
         if (isString(messageText)) {
             return messageText;
         }

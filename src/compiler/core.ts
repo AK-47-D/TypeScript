@@ -1749,7 +1749,7 @@ namespace ts {
         return uiLocale;
     }
 
-    export function setUILocale(value: string) {
+    export function setUILocale(value: string | undefined) {
         if (uiLocale !== value) {
             uiLocale = value;
             uiComparerCaseSensitive = undefined;

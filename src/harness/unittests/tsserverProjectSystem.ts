@@ -2540,17 +2540,16 @@ namespace ts.projectSystem {
             const project = configuredProjectAt(projectService, 0);
             assert.isFalse(project.languageServiceEnabled, "Language service enabled");
             assert.isTrue(!!lastEvent!, "should receive event");
-            const data = lastEvent!.data;
-            assert.equal(data.project, project, "project name");
-            assert.equal(data.project.getProjectName(), config.path, "config path");
-            assert.isFalse(data.languageServiceEnabled, "Language service state");
+            assert.equal(lastEvent!.data.project, project, "project name");
+            assert.equal(lastEvent!.data.project.getProjectName(), config.path, "config path");
+            assert.isFalse(lastEvent!.data.languageServiceEnabled, "Language service state");
 
             host.reloadFS([f1, f2, configWithExclude]);
             host.checkTimeoutQueueLengthAndRun(2);
             checkNumberOfProjects(projectService, { configuredProjects: 1 });
             assert.isTrue(project.languageServiceEnabled, "Language service enabled");
-            assert.equal(data.project, project, "project");
-            assert.isTrue(data.languageServiceEnabled, "Language service state");
+            assert.equal(lastEvent!.data.project, project, "project");
+            assert.isTrue(lastEvent!.data.languageServiceEnabled, "Language service state");
         });
 
         it("syntactic features work even if language service is disabled", () => {

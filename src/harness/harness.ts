@@ -492,7 +492,7 @@ namespace Harness {
         fileExists(fileName: string): boolean;
         directoryExists(path: string): boolean;
         deleteFile(fileName: string): void;
-        listFiles(path: string, filter: RegExp, options?: { recursive?: boolean }): string[];
+        listFiles(path: string, filter: RegExp | undefined, options?: { recursive?: boolean }): string[];
         log(text: string): void;
         getMemoryUsage?(): number;
         args(): string[];
@@ -1141,7 +1141,7 @@ namespace Harness {
             inputFiles: TestFile[],
             otherFiles: TestFile[],
             harnessSettings: TestCaseParser.CompilerSettings | undefined,
-            compilerOptions: ts.CompilerOptions,
+            compilerOptions: ts.CompilerOptions | undefined,
             // Current directory is needed for rwcRunner to be able to use currentDirectory defined in json file
             currentDirectory: string | undefined): CompilationOutput {
             const options: ts.CompilerOptions & HarnessOptions = compilerOptions ? ts.cloneCompilerOptions(compilerOptions) : { noResolve: false };
@@ -1219,7 +1219,7 @@ namespace Harness {
         export interface DeclarationCompilationContext {
             declInputFiles: TestFile[];
             declOtherFiles: TestFile[];
-            harnessSettings: TestCaseParser.CompilerSettings & HarnessOptions;
+            harnessSettings: TestCaseParser.CompilerSettings & HarnessOptions | undefined;
             options: ts.CompilerOptions;
             currentDirectory: string;
         }
@@ -2079,7 +2079,7 @@ namespace Harness {
             writeComparison(comparison.expected, comparison.actual, relativeFileName, actualFileName);
         }
 
-        export function runMultifileBaseline(relativeFileBase: string, extension: string, generateContent: () => IterableIterator<[string, string, number]> | IterableIterator<[string, string]>, opts?: BaselineOptions, referencedExtensions?: string[]): void {
+        export function runMultifileBaseline(relativeFileBase: string, extension: string, generateContent: () => IterableIterator<[string, string, number]> | IterableIterator<[string, string]> | null, opts?: BaselineOptions, referencedExtensions?: string[]): void {
             const gen = generateContent();
             const writtenFiles = ts.createMap<true>();
             const errors: Error[] = [];
